@@ -1,3 +1,4 @@
+import 'package:b_t_e_app/function/b_date.dart';
 import 'package:flutter/material.dart';
 
 import 'function/b_to_e.dart';
@@ -34,9 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
               'You have pushed the button this many times:',
             ),
             Text(
-              TransLateNumber().engToBan("$_counter"),
+              TransLateNumber.engToBan("$_counter"),
               style: Theme.of(context).textTheme.headline4,
             ),
+            const Text("Today Bangla Date"),
+            const SizedBox(height: 10),
+            Text("${BanglaDate.setDateEng(DateTime.now())}"),
           ],
         ),
       ),

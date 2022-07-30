@@ -1,5 +1,5 @@
 class TransLateNumber {
-  String engToBan(String inputValue) {
+  static String engToBan(String inputValue) {
     var strList = inputValue.split('');
     List<String> returnList = [];
     for (var str in strList) {
@@ -43,7 +43,7 @@ class TransLateNumber {
     return returnList.join("");
   }
 
-  String banToEng(String inputValue) {
+  static String banToEng(String inputValue) {
     var strList = inputValue.split('');
     List<String> returnList = [];
     for (var str in strList) {
