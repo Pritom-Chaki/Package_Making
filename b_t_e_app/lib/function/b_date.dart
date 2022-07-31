@@ -25,18 +25,21 @@ class BanglaDate {
       "November",
       "December"
     ];
+
     Map<String, int> arg = {
       "date": tarikh.day,
       'month': tarikh.month + 1,
       'year': tarikh.year,
     };
+    print("ARG = $arg");
+    //  print("tarikh.weekday = ${tarikh.weekday}");
     Map<String, dynamic> dateEn = {
-      "day": dayName[tarikh.day],
+      "day": dayName[tarikh.weekday - 1],
       "date": tarikh.day,
       "month": monthName[tarikh.month],
       "year": tarikh.year
     };
-
+    print("DATEEN = $dateEn");
     Map<String, dynamic> dateBd = getDatebd(arg);
     return {"dateEn": dateEn, 'dateBd': dateBd};
   }
@@ -86,11 +89,12 @@ class BanglaDate {
       final x, y;
       x = n >= 10 && n < 20 ? esheAdd['e'] : '';
       y = n >= 20 && n <= 31 ? esheAdd['she'] : '';
-      return x || y ? y + x : '';
+      return x.isEmpty || y.isEmpty ? y + x : '';
     }
 
-    getYear(dmy) =>
-        dmy.month <= 4 && dmy.date <= 13 ? dmy.year - 594 : dmy.year - 593;
+    getYear(dmy) => dmy['month'] <= 4 && dmy['date'] <= 13
+        ? dmy['year'] - 594
+        : dmy['year'] - 593;
 
     getMonthDate(d, m) {
       if (m == 1 && d <= 13) {
@@ -172,12 +176,24 @@ class BanglaDate {
       return {'month': m, 'date': d};
     }
 
-    var GetdayName = dayName[arg['day']!];
-    final daymon = getMonthDate(arg['day'], arg['month']);
-    final getSession = session[(daymon['month'] / 2).floor];
+    final year = arg['year']!;
+    final month = arg['month']!.toString().padLeft(2, '0');
+    final date = arg['date']!.toString().padLeft(2, '0');
+    DateTime dt = DateTime.parse('$year-$month-$date');
+    print("DT = $dt.weekday");
+    var getdayName = dayName[dt.weekday];
+    final daymon = getMonthDate(arg['date'], arg['month']);
+
+    print('daymon = ${daymon['month']}');
+    print("daymon['month'] = ${3 / 2}");
+    print("daymon['month'].floor() = ${(3 / 2).floor()}");
+
+    final getSession = session[(daymon['month'] / 2).floor()];
+
+    print('getSession = $getSession');
 
     return {
-      'day': rojAdd + GetdayName,
+      'day': rojAdd + getdayName,
       'date': convertNumber(daymon['month']) + addEe(daymon['date']),
       'month': monthName[daymon['month']],
       'session': getSession + kalAdd,
