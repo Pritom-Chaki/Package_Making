@@ -34,9 +34,9 @@ class BanglaDate {
     print("ARG = $arg");
     //  print("tarikh.weekday = ${tarikh.weekday}");
     Map<String, dynamic> dateEn = {
-      "day": dayName[tarikh.weekday - 1],
+      "day": dayName[tarikh.weekday],
       "date": tarikh.day,
-      "month": monthName[tarikh.month],
+      "month": monthName[tarikh.month -1 ],
       "year": tarikh.year
     };
     print("DATEEN = $dateEn");
@@ -180,15 +180,21 @@ class BanglaDate {
     final month = arg['month']!.toString().padLeft(2, '0');
     final date = arg['date']!.toString().padLeft(2, '0');
     DateTime dt = DateTime.parse('$year-$month-$date');
-    print("DT = $dt.weekday");
+    print("DT = ${dt.weekday}");
     var getdayName = dayName[dt.weekday];
     final daymon = getMonthDate(arg['date'], arg['month']);
-
+    // double d = 20.5;
+    //
+    // int i = d.toInt(); // i = 20
+    // int i = d.round(); // i = 21
+    // int i = d.ceil();  // i = 21
+    // int i = d.floor(); // i = 20
     print('daymon = ${daymon['month']}');
     print("daymon['month'] = ${3 / 2}");
     print("daymon['month'].floor() = ${(3 / 2).floor()}");
+    print("daymon['month'].ceil() = ${(3 / 2).ceil()}");
 
-    final getSession = session[(daymon['month'] / 2).floor()];
+    final getSession = session[(daymon['month'] / 2).ceil()];
 
     print('getSession = $getSession');
 
